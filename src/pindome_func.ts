@@ -11,10 +11,10 @@ export function pindome(reaction: MessageReaction | PartialMessageReaction, user
             //ピン止めが可能であれば実行
             if (reaction.message.pinnable) {
                 reaction.message.pin()
-                let sendmsg = "@" + user.toString() + "\nメッセージをピン留めしましたっ！"
+                let sendmsg = user.toString() + "\nメッセージをピン留めしましたっ！"
                 reaction.message.channel.send(sendmsg)
             } else {
-                let sendmsg = "@" + user.toString() + "\nメッセージをピン留めできなかったよ"
+                let sendmsg = user.toString() + "\nメッセージをピン留めできなかったよ"
                 reaction.message.channel.send(sendmsg)
             }
         }
