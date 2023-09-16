@@ -55,14 +55,43 @@ export function unpin_command(message:Message):void{
                 let unpin_msg = message.channel.messages.fetch(unpin_msgid)
                 unpin_msg.then((targetMessage) =>{
                     if(targetMessage){
-                        let ask_msg = message.reply("ほんとうにピン留めを外してもいいの？")
+                        let ask_msg = targetMessage.reply("ほんとうにピン留めを外してもいいの？")
                         ask_msg.then((ask_message) =>{
                             ask_message.react("✅")
                             ask_message.react("❌")
+                            if(message.deletable){
+                                message.delete()
+                            }
                         })
                     }
                 })
             }
+        }
+    }
+}
+
+export function unpin_reaction_subscriber(reaction: MessageReaction | PartialMessageReaction, user: User | PartialUser):void{
+    //ピン留めを消したい人とリアクションした人が一致した場合のみピン留め解除を実行
+    if(user.bot)return
+    switch(reaction.emoji.name){
+        case "✅":{
+            if(reaction.message.reference?.messageId){
+                let unpin_message = reaction.message.channel.messages.fetch(reaction.message.reference.messageId)
+                unpin_message.then((dest_message) =>{
+                    if(dest_message.pinned){
+                        dest_message.reactions.removeAll()
+                        dest_message.unpin()
+                        dest_message.reply("ピン留めを外しましたっ！")
+                    }
+                })
+            }
+            break
+        }
+        case "❌":{
+            if(reaction.message.deletable){
+                reaction.message.delete()
+            }
+            break
         }
     }
 }

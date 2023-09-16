@@ -1,7 +1,7 @@
 import { GatewayIntentBits, Client, Partials, Message } from 'discord.js'
 import dotenv from 'dotenv'
 
-import { erase_pin_automsg, pindome, unpin_command } from './pindome_func'
+import { erase_pin_automsg, pindome, unpin_command, unpin_reaction_subscriber } from './pindome_func'
 
 //.envファイルを読み込む
 dotenv.config()
@@ -29,6 +29,7 @@ client.once('ready', () => {
 
 client.on('messageReactionAdd',(reaction,user) =>{
     pindome(reaction,user)
+    unpin_reaction_subscriber(reaction,user)
 })
 
 client.on('messageCreate',(message) =>{
