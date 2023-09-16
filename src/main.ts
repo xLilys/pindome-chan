@@ -1,7 +1,7 @@
 import { GatewayIntentBits, Client, Partials, Message } from 'discord.js'
 import dotenv from 'dotenv'
 
-import { erase_pin_automsg, pindome } from './pindome_func'
+import { erase_pin_automsg, pindome, unpin_command } from './pindome_func'
 
 //.envファイルを読み込む
 dotenv.config()
@@ -33,6 +33,7 @@ client.on('messageReactionAdd',(reaction,user) =>{
 
 client.on('messageCreate',(message) =>{
     erase_pin_automsg(client.user,message)
+    unpin_command(message)
 })
 
 //ボット作成時のトークンでDiscordと接続
