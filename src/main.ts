@@ -17,12 +17,14 @@ const client = new Client({
     partials: [Partials.Message, Partials.Channel],
 })
 
+
 client.once('ready', () => {
     console.log('Ready!')
     if (client.user) {
         console.log(client.user.tag)
     }
 })
+
 
 //ボット作成時のトークンでDiscordと接続
 client.login(process.env.TOKEN)
