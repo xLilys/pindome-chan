@@ -25,6 +25,9 @@ client.once('ready', () => {
     }
 })
 
+client.on('messageReactionAdd',(reaction,user) =>{
+    console.log(`${reaction.message.guild} reaction ${reaction.emoji.name}`)
+})
 
 //ボット作成時のトークンでDiscordと接続
 client.login(process.env.TOKEN)
