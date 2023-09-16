@@ -1,6 +1,8 @@
 import { GatewayIntentBits, Client, Partials, Message } from 'discord.js'
 import dotenv from 'dotenv'
 
+import { pindome } from './pindome_func'
+
 //.envファイルを読み込む
 dotenv.config()
 
@@ -26,7 +28,7 @@ client.once('ready', () => {
 })
 
 client.on('messageReactionAdd',(reaction,user) =>{
-    console.log(`${reaction.message.guild} reaction ${reaction.emoji.name}`)
+    pindome(reaction,user)
 })
 
 //ボット作成時のトークンでDiscordと接続
