@@ -10,9 +10,11 @@ function pindome(reaction, user) {
         case pin_emoji: {
             //ピン止めが可能であれば実行
             if (reaction.message.pinnable) {
-                reaction.message.pin();
-                let sendmsg = user.toString() + "がメッセージをピン留めしましたっ！";
-                reaction.message.reply(sendmsg);
+                if (!reaction.message.pinned) {
+                    reaction.message.pin();
+                    let sendmsg = user.toString() + "がメッセージをピン留めしましたっ！";
+                    reaction.message.reply(sendmsg);
+                }
             }
             else {
                 if (!reaction.message.pinned) {
