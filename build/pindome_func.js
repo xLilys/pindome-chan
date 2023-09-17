@@ -11,12 +11,14 @@ function pindome(reaction, user) {
             //ピン止めが可能であれば実行
             if (reaction.message.pinnable) {
                 reaction.message.pin();
-                let sendmsg = user.toString() + "\nメッセージをピン留めしましたっ！";
-                reaction.message.channel.send(sendmsg);
+                let sendmsg = user.toString() + "がメッセージをピン留めしましたっ！";
+                reaction.message.reply(sendmsg);
             }
             else {
-                let sendmsg = user.toString() + "\nメッセージをピン留めできなかったよ。";
-                reaction.message.channel.send(sendmsg);
+                if (!reaction.message.pinned) {
+                    let sendmsg = user.toString() + "\nメッセージをピン留めできなかったよ。";
+                    reaction.message.channel.send(sendmsg);
+                }
             }
         }
     }
